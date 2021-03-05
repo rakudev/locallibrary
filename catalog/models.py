@@ -10,8 +10,9 @@ class Genre(models.Model):
     """
     name = models.CharField(max_length=200, help_text = "Enter a book genre (for example: Science Fiction).")
 
-    def __str__():
+    def __str__(self):
         return self.name
+
 
 
 class Book(models.Model):
@@ -38,7 +39,12 @@ class Book(models.Model):
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
+        
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
 
+    display_genre.short_description = 'Genre'
 
 
 class BookInstance(models.Model):
@@ -98,7 +104,7 @@ class Language(models.Model):
         """String for representing the Model object (in Admin site etc.)"""
         return self.name
 
-# # My implementation of "language". 
+# # My implementation of "language".
 # class Language(models.Model):
 #     LANGUAGES = (
 #         ('en', 'English'),
