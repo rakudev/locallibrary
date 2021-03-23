@@ -1,0 +1,14 @@
+{% extends 'catalog/base_generic.html' %}
+
+{%block content %}
+  <h1> Author List </h1>
+  {% if author_list %}
+    <ul>
+      {% for author in author_list%}
+        <a href="{% url 'author-detail' pk=author.pk %}"><li> {{author}} </li></a>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p> Sorry, I don't think we have any authors </p>
+  {% endif %}
+{%endblock%}
