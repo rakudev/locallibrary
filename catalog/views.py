@@ -16,13 +16,16 @@ class AuthorListView(generic.ListView):
 
 class AuthorDetailView(generic.DetailView):
     model = Author
-    
+
 def index(request):
     """View function for home page of site."""
 
     # Generate counts of some of the main objects
     num_books = Book.objects.all().count()
     num_instances = BookInstance.objects.all().count()
+
+    num_of_visits = request.session.get("num_of_visits", 1)
+    request.session["num_of_visits"] = num_of_visits + 1
 
     # Available books (status = 'a')
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
@@ -38,6 +41,7 @@ def index(request):
         'num_authors': num_authors,
         'num_genres_with_fiction' : num_genres_with_fiction,
         'num_books_with_I': num_books_with_I,
+        'num_of_visits' : num_of_visits
     }
 
     # Render the HTML template index.html with the data in the context variable

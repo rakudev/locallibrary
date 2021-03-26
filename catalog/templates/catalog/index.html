@@ -17,4 +17,7 @@
     <li><strong>Genres containing "fiction":</strong> {{ num_genres_with_fiction }}</li>
     <li><strong>Books containing "I":</strong> {{ num_books_with_I }}</li>
   </ul>
+
+
+<p> You have visited this site {{num_of_visits}} time{% if num_of_visits > 1%}s{%endif%}.</p>
 {% endblock %}
