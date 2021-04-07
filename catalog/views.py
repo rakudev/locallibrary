@@ -32,9 +32,22 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('authors')
     permission_required = ("catalog.can_mark_returned")
 
+class BookCreate(PermissionRequiredMixin, CreateView):
+    model = Book
+    fields = ['title', 'author', 'summary', 'isbn', 'language', 'genre']
+    permission_required=("catalog.can_mark_returned")
 
+class BookUpdate(PermissionRequiredMixin, UpdateView):
+    model = Book
+    fields = ['author', 'summary', 'isbn', 'language', 'genre']
+    permission_required=("catalog.can_mark_returned")
 
+class BookDelete(PermissionRequiredMixin, DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')
+    permission_required = ("catalog.can_mark_returned")
 
+    
 @login_required
 @permission_required('catalog.can_mark_returned', raise_exception=True)
 def renew_book_librarian(request, pk):
